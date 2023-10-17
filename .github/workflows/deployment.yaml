@@ -53,9 +53,8 @@ jobs:
       - name: log root directory
         run: ls ./
       - name: Deploy
-        uses: reggionick/s3-deploy@v3
+        uses: reggionick/s3-deploy@v4
         with:
-          folder: './out'
+          folder: out
           bucket: code-gpt-ccmp
           bucket-region: 'us-east-1'
-          files-to-include: '.*/*,*/*,**'
