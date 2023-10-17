@@ -9,6 +9,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - run: mkdir ~/.aws && touch ~/.aws/credentials && touch ~/.aws/config
       - run: echo "${{ secrets.AWS_ACCESS_KEY }}" > ~/.aws/credentials && echo "${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials && echo "${{ secrets.AWS_DEFAULT_REGION }}" >> ~/.aws/credentials && echo "${{ env.CDK_DEFAULT_ACCOUNT }}" > ~/.aws/config
       - run: echo "Default = ${{ env.CDK_DEFAULT_ACCOUNT }}"
       - name: CDK Deploy
