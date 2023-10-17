@@ -17,13 +17,15 @@ export class CodeGptStack extends cdk.Stack {
     });
 
     // add bucket policy to allow public read access
-    const bucketPolicy = new PolicyStatement({
-      effect: Effect.ALLOW,
-      actions: ['s3:GetObject'],
-      principals: [new AnyPrincipal()],
-      resources: [bucket.arnForObjects('*')],
-    });
-    bucket.addToResourcePolicy(bucketPolicy);
+    // const bucketPolicy = new PolicyStatement({
+    //   sid: 'PublicReadAccess',
+    //   effect: Effect.ALLOW,
+    //   actions: ['s3:GetObject'],
+    //   principals: [new AnyPrincipal()],
+    //   resources: [bucket.arnForObjects('*')],
+    // });
+
+    // bucket.addToResourcePolicy(bucketPolicy);
 
     // Deployed through git actions
     // // deploy website files to bucket
