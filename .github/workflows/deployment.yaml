@@ -75,7 +75,7 @@ jobs:
       - name: Deploy
         uses: reggionick/s3-deploy@v4
         with:
-          folder: out
-          bucket: ${{ secrets.S3_BUCKET }}
+          folder: ./out
+          bucket: code-gpt-ccmp
           bucket-region: 'us-east-1'
           files-to-include: '.*/*,*/*,**'
