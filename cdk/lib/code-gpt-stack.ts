@@ -1,9 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { BlockPublicAccess, Bucket } from 'aws-cdk-lib/aws-s3';
-// import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
-import { AnyPrincipal, Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 
 export class CodeGptStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
