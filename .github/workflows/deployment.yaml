@@ -72,10 +72,12 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: log directory
         run: ls
+      - name: log root directory
+        run: ls ./
       - name: Deploy
         uses: reggionick/s3-deploy@v4
         with:
-          folder: ./out
+          folder: './out'
           bucket: code-gpt-ccmp
           bucket-region: 'us-east-1'
           files-to-include: '.*/*,*/*,**'
