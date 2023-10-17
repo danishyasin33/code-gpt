@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - run: echo "${{ secrets.AWS_ACCESS_KEY }}" > ~/.aws/credentials && echo "${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials && echo "${{ secrets.AWS_DEFAULT_REGION }}" >> ~/.aws/credentials && echo "${{ env.CDK_DEFAULT_ACCOUNT }}" > ~/.aws/config
+      - run: echo "Default = ${{ env.CDK_DEFAULT_ACCOUNT }}"
       - name: CDK Deploy
         uses: youyo/aws-cdk-github-actions@v2
         with:
@@ -21,7 +23,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: 'us-east-1'
-          CDK_DEFAULT_ACCOUNT: ${{ secrets.CDK_DEFAULT_ACCOUNT }}}
+          CDK_DEFAULT_ACCOUNT: ${{ env.CDK_DEFAULT_ACCOUNT }}}
   deploy_webapp:
     name: Deploy Webapp
     needs: deploy_cdk
