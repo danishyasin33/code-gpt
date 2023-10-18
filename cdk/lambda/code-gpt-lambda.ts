@@ -1,46 +1,40 @@
-import axios from 'axios';
+import OpenAI from 'openai';
 
-const openaiApiKey = process.env.OPENAI_API_KEY;
-const openaiApiUrl = 'https://api.openai.com/v1/engines/davinci-codex/completions';
-
-interface Bug {
-    line: number;
-    message: string;
-}
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+    timeout: 20 * 1000,
+});
 
 export async function handler(event: any) {
     const { code } = event;
 
-    const response = await axios.post(openaiApiUrl, {
-        prompt: `Find bugs in the following code:\n\n${code}`,
-        max_tokens: 1024,
-        temperature: 0.7,
-        n: 1,
-        stop: '\n\n',
-    }, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${openaiApiKey}`,
-        },
-    });
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [
+                {
+                    "role": "system",
+                    "content": "You will be provided with a piece of code, and your task is to find and fix bugs in it."
+                },
+                {
+                    "role": "user",
+                    "content": code
+                }
+            ],
+            temperature: 0.2,
+            max_tokens: 1024,
+        });
 
-    const generatedText = response.data.choices[0].text;
-    const bugs: Bug[] = [];
-
-    // Parse the generated text to identify potential bugs
-    // For example, you could look for lines that contain the words "error" or "bug"
-    // and extract the line number and error message
-    // Here's an example implementation that looks for lines that contain the word "error"
-    generatedText.split('\n').forEach((line: string, index: number) => {
-        if (line.toLowerCase().includes('error')) {
-            bugs.push({
-                line: index + 1,
-                message: line.trim(),
-            });
+        const choices = response.choices;
+        const completion = choices[0].message;
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ completion }),
+        };
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error }),
         }
-    });
-
-    return {
-        bugs,
-    };
+    }
 }
