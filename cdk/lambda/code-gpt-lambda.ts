@@ -11,6 +11,7 @@ export async function handler(event: any) {
     if (!code) {
         return {
             statusCode: 400,
+            code: code,
             body: JSON.stringify({ error: 'No code provided' }),
         }
     }
@@ -41,6 +42,7 @@ export async function handler(event: any) {
     } catch (error) {
         return {
             statusCode: 500,
+            code: JSON.stringify(code),
             body: JSON.stringify({ error }),
         }
     }
