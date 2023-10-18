@@ -6,7 +6,7 @@ const openai = new OpenAI({
 });
 
 export async function handler(event: any) {
-    const { code } = event;
+    const { code } = JSON.parse(event.body);
 
     if (!code) {
         return {

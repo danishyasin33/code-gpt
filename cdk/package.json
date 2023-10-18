@@ -9,7 +9,7 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "cdk-deploy": "cd lambda && npm run transpile && cd .. && cdk deploy --profile personal"
+    "cdk-deploy": "cd lambda && npm run transpile && cd .. && cdk deploy"
   },
   "devDependencies": {
     "@types/jest": "^29.5.5",
