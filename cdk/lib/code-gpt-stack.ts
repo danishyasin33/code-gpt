@@ -1,6 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { BlockPublicAccess, Bucket, BucketAccessControl, ObjectOwnership } from 'aws-cdk-lib/aws-s3';
+import { Lambda } from 'aws-cdk-lib/aws-ses-actions';
+import { FunctionUrlAuthType } from 'aws-cdk-lib/aws-lambda';
 
 export class CodeGptStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -20,6 +22,20 @@ export class CodeGptStack extends cdk.Stack {
         blockPublicPolicy: false,
         restrictPublicBuckets: false,
       }),
+    });
+
+    const handler = new cdk.aws_lambda.Function(this, 'code-gpt-lambda', {
+      runtime: cdk.aws_lambda.Runtime.NODEJS_18_X,
+      code: cdk.aws_lambda.Code.fromAsset('lambda'),
+      handler: 'code-gpt-lambda.handler',
+      environment: {
+        OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
+      },
+    });
+
+    // 👇 Setup lambda url
+    const lambdaUrl = handler.addFunctionUrl({
+      authType: FunctionUrlAuthType.NONE,
     });
   }
 }
