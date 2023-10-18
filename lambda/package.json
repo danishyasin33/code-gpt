@@ -1,0 +1,18 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "description": "code for aws lambda that calls open API",
+  "main": "code-gpt-lambda.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "danish | maryam",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.6"
+  }
+}
