@@ -8,6 +8,13 @@ const openai = new OpenAI({
 export async function handler(event: any) {
     const { code } = event;
 
+    if (!code) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ error: 'No code provided' }),
+        }
+    }
+
     try {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
@@ -18,7 +25,7 @@ export async function handler(event: any) {
                 },
                 {
                     "role": "user",
-                    "content": code
+                    "content": JSON.stringify(code)
                 }
             ],
             temperature: 0.2,
