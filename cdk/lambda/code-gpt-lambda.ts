@@ -11,10 +11,11 @@ export async function handler(event: any) {
     if (!code) {
         return {
             statusCode: 400,
-            code: code,
-            body: JSON.stringify({ error: 'No code provided' }),
+            body: JSON.stringify({ error: 'No code provided', code: code }),
         }
     }
+
+    console.log("code: " + code);
 
     try {
         const response = await openai.chat.completions.create({
@@ -35,6 +36,8 @@ export async function handler(event: any) {
 
         const choices = response.choices;
         const completion = choices[0].message;
+
+        console.log("full response: ", response);
         return {
             statusCode: 200,
             body: JSON.stringify({ completion }),
@@ -42,8 +45,7 @@ export async function handler(event: any) {
     } catch (error) {
         return {
             statusCode: 500,
-            code: JSON.stringify(code),
-            body: JSON.stringify({ error }),
+            body: JSON.stringify({ error, code: code }),
         }
     }
 }

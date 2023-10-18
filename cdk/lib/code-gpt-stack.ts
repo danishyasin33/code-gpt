@@ -30,6 +30,7 @@ export class CodeGptStack extends cdk.Stack {
       environment: {
         OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
       },
+      timeout: cdk.Duration.seconds(20),
     });
 
     // 👇 Setup lambda url
