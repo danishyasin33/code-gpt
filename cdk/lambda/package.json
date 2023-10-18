@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "transpile": "npx tsc --build tsconfig.json",
-    "transpile-two": "npx tsc --skipLibCheck code-gpt-lambda.ts"
+    "transpile-two": "npx tsc --skipLibCheck code-gpt-lambda.ts",
+    "run-local": "node local-test",
+    "run-ts": "npx ts-node local-tes.ts"
   },
   "author": "danish | maryam",
   "license": "ISC",
