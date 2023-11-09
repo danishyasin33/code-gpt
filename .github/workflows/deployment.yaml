@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: CD to Lambda
-        run: cd cdk/lambda
+        run: cd cdk/lambda && pwd && ls
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -46,9 +46,9 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: CD into CDK dir
-        run: cd ../
+        run: cd .. && pwd && ls
       - name: Zip Lambda
-        run: ls && zip -r lambda.zip lambda && ls
+        run: zip -r lambda.zip lambda && ls
       - name: CD into Root
         run: cd ../
       - name: CDK Deploy
