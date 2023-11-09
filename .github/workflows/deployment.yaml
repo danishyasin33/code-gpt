@@ -45,8 +45,12 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: CD into CDK dir
+        run: cd ../
+      - name: Zip Lambda
+        run: zip -r lambda.zip lambda
       - name: CD into Root
-        run: cd ../..
+        run: cd ../
       - name: CDK Deploy
         uses: youyo/aws-cdk-github-actions@v2
         with:
