@@ -48,7 +48,7 @@ jobs:
       - name: CD into CDK dir
         run: cd ../
       - name: Zip Lambda
-        run: zip -r lambda.zip lambda
+        run: zip -r lambda.zip . -i lambda
       - name: CD into Root
         run: cd ../
       - name: CDK Deploy
