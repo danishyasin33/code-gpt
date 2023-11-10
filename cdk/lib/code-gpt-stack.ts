@@ -25,7 +25,7 @@ export class CodeGptStack extends cdk.Stack {
 
     const handler = new cdk.aws_lambda.Function(this, 'code-gpt-lambda', {
       runtime: cdk.aws_lambda.Runtime.NODEJS_18_X,
-      code: new AssetCode('lambda.zip'),
+      code: cdk.aws_lambda.Code.fromAsset('lambda'),
       handler: 'code-gpt-lambda.handler',
       environment: {
         OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
