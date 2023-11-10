@@ -35,6 +35,7 @@ jobs:
       - name: Install dependencies
         run: | 
           cd cdk/lambda
+          npm run transpile
           ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: CDK Deploy
         uses: youyo/aws-cdk-github-actions@v2
