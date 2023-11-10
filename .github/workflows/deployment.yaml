@@ -36,7 +36,7 @@ jobs:
         run: | 
           cd cdk/lambda
           npm install typescript
-          npm run transpile
+          npm run transpile-two
           ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: CDK Deploy
         uses: youyo/aws-cdk-github-actions@v2
