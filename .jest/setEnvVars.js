@@ -1,0 +1,1 @@
+process.env.OPENAI_API_KEY = "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";
