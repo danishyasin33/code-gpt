@@ -9,9 +9,14 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
+    "@uiw/react-codemirror": "^4.21.20",
+    "@uiw/react-textarea-code-editor": "^1.4.4",
+    "axios": "^1.6.2",
     "next": "latest",
+    "prismjs": "^1.29.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-simple-code-editor": "^0.13.1"
   },
   "engines": {
     "node": ">=18"

@@ -44,27 +44,33 @@ var openai = new openai_1.default({
 });
 function handler(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var code, response, choices, completion, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, request, code, response, choices, completion, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    code = JSON.parse(event.body).code;
+                    _a = JSON.parse(event.body), request = _a.request, code = _a.code;
                     if (!code) {
                         return [2 /*return*/, {
                                 statusCode: 400,
                                 body: JSON.stringify({ error: 'No code provided', code: code }),
                             }];
                     }
+                    if (!request) {
+                        return [2 /*return*/, {
+                                statusCode: 400,
+                                body: JSON.stringify({ error: 'No request provided', code: code }),
+                            }];
+                    }
                     console.log("code: " + code);
-                    _a.label = 1;
+                    _b.label = 1;
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _b.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, openai.chat.completions.create({
                             model: "gpt-3.5-turbo",
                             messages: [
                                 {
                                     "role": "system",
-                                    "content": "You will be provided with a piece of code, and your task is to find and fix bugs in it."
+                                    "content": request
                                 },
                                 {
                                     "role": "user",
@@ -75,7 +81,7 @@ function handler(event) {
                             max_tokens: 1024,
                         })];
                 case 2:
-                    response = _a.sent();
+                    response = _b.sent();
                     choices = response.choices;
                     completion = choices[0].message;
                     console.log("full response: ", response);
@@ -84,7 +90,7 @@ function handler(event) {
                             body: JSON.stringify({ completion: completion }),
                         }];
                 case 3:
-                    error_1 = _a.sent();
+                    error_1 = _b.sent();
                     return [2 /*return*/, {
                             statusCode: 500,
                             body: JSON.stringify({ error: error_1, code: code }),

@@ -16,7 +16,9 @@ const Navbar = () => {
                 <Link href="#thirdSec">How It Works</Link>
             </div>
             <div className="flex gap-4">
-                <button className="border-2 px-5 rounded-full border-purple-500 text-purple-600 hover:bg-slate-700 hover:border-slate-700 hover:text-white">Dashboard</button>
+                <Link href='/dashboard' className="border-2 px-5 rounded-full border-purple-500 text-purple-600 hover:bg-slate-700 hover:border-slate-700 hover:text-white">
+                    Dashboard
+                </Link>
             </div>
 
         </nav>

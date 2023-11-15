@@ -6,12 +6,19 @@ const openai = new OpenAI({
 });
 
 export async function handler(event: any) {
-    const { code } = JSON.parse(event.body);
+    const { request, code } = JSON.parse(event.body);
 
     if (!code) {
         return {
             statusCode: 400,
-            body: JSON.stringify({ error: 'No code provided', code: code }),
+            body: JSON.stringify({ error: 'No code provided', code: code, request: request }),
+        }
+    }
+
+    if (!request) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ error: 'No request provided', request: request, code: code }),
         }
     }
 
@@ -23,7 +30,7 @@ export async function handler(event: any) {
             messages: [
                 {
                     "role": "system",
-                    "content": "You will be provided with a piece of code, and your task is to find and fix bugs in it."
+                    "content": request
                 },
                 {
                     "role": "user",
